@@ -15,6 +15,7 @@ on:
       deployment_target:
         description: 'The deployment target'
         type: string
+        default: "simple"
 
 
 jobs:
