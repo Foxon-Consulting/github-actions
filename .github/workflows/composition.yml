@@ -1,0 +1,69 @@
+name: Composition
+
+on:
+  workflow_call:
+    inputs:
+      technology:
+        description: "The type of technology to run the integration for"
+        type: string
+
+      deliver_docker_image:
+        description: 'Whether to deliver the docker image'
+        default: false
+        type: "boolean"
+
+      deployment_target:
+        description: 'The deployment target'
+        type: string
+
+
+jobs:
+  pre-commit:
+    runs-on: ubuntu-latest
+    steps:
+      - name: pre-commit
+        uses: Foxon-Consulting/github-actions/integration/common/pre-commit@main
+
+  integration:
+    uses: Foxon-Consulting/github-actions/.github/workflows/${{ inputs.technology }}_integration.yml@main
+
+  releasing:
+    runs-on: ubuntu-latest
+    needs:
+      - pre-commit
+      - integration
+    if: github.ref == 'refs/heads/main'
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - name: releasing
+        uses: Foxon-Consulting/github-actions/delivery/common/release-please@main
+
+  delivery:
+    needs:
+      - releasing
+    if: github.ref == 'refs/heads/main'
+    permissions:
+      contents: write
+      pull-requests: write
+    uses: Foxon-Consulting/github-actions/.github/workflows/${{ inputs.technology }}_delivery.yml@main
+
+  docker-image:
+    needs:
+      - releasing
+    if: github.ref == 'refs/heads/main' && github.event.inputs.deliver_docker_image == true
+    permissions:
+      contents: write
+      pull-requests: write
+    uses: Foxon-Consulting/github-actions/.github/workflows/docker_delivery.yml@main
+
+  deployment:
+    needs:
+      - releasing
+      - delivery
+    if: github.ref == 'refs/heads/dev' && github.event.inputs.deployment_target != null
+    permissions:
+      contents: write
+      pull-requests: write
+    uses: Foxon-Consulting/github-actions/.github/workflows/$${{ inputs.deployment_target }}_deployment.yml@main
