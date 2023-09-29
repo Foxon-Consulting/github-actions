@@ -25,7 +25,7 @@ jobs:
         uses: Foxon-Consulting/github-actions/integration/common/pre-commit@main
 
   integration:
-    uses: Foxon-Consulting/github-actions/.github/workflows/${{ inputs.technology }}_integration.yml@main
+    uses: Foxon-Consulting/github-actions/.github/workflows/${{ inputs.technology }}_integration.yml@factorization
 
   releasing:
     runs-on: ubuntu-latest
@@ -47,7 +47,7 @@ jobs:
     permissions:
       contents: write
       pull-requests: write
-    uses: Foxon-Consulting/github-actions/.github/workflows/${{ inputs.technology }}_delivery.yml@main
+    uses: Foxon-Consulting/github-actions/.github/workflows/${{ inputs.technology }}_delivery.yml@factorization
 
   docker-image:
     needs:
@@ -56,7 +56,7 @@ jobs:
     permissions:
       contents: write
       pull-requests: write
-    uses: Foxon-Consulting/github-actions/.github/workflows/docker_delivery.yml@main
+    uses: Foxon-Consulting/github-actions/.github/workflows/docker_delivery.yml@factorization
 
   deployment:
     needs:
@@ -66,4 +66,4 @@ jobs:
     permissions:
       contents: write
       pull-requests: write
-    uses: Foxon-Consulting/github-actions/.github/workflows/$${{ inputs.deployment_target }}_deployment.yml@main
+    uses: Foxon-Consulting/github-actions/.github/workflows/$${{ inputs.deployment_target }}_deployment.yml@factorization
