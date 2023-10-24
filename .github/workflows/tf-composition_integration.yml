@@ -2,11 +2,6 @@ name: Integration
 
 on:
   workflow_call:
-    inputs:
-      env:
-        description: 'Environment to run against'
-        required: true
-        type: string
 
 jobs:
   validate:
@@ -14,5 +9,3 @@ jobs:
     steps:
       - name: simple
         uses: Foxon-Consulting/github-actions/integration/terraform/validate@main
-        with:
-          env: ${{ github.event.inputs.environments }}
