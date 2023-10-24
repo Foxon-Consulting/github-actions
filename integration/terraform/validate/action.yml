@@ -21,9 +21,8 @@ runs:
   - name: Terraform init
     shell: bash
     run: terraform init
-    working-directory: ${{ inputs.working-directory }}/${{ inputs.env }}
-
+    working-directory: ${{ inputs.working-directory }}
   - name: Terraform validate
     shell: bash
     run: terraform validate
-    working-directory: ${{ inputs.working-directory }}/${{ inputs.env }}
+    working-directory: ${{ inputs.working-directory }}
