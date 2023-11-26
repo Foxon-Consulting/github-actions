@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.4.0](https://github.com/Foxon-Consulting/github-actions/compare/1.3.0...1.4.0) (2023-11-26)
+
+
+### Features
+
+* add nextjs integration workflow ([#12](https://github.com/Foxon-Consulting/github-actions/issues/12)) ([9d8a835](https://github.com/Foxon-Consulting/github-actions/commit/9d8a83534f0ae2c2351e93e575f7c1313d77c0ba))
+
 ## [1.3.0](https://github.com/Foxon-Consulting/github-actions/compare/1.2.0...1.3.0) (2023-09-26)
 
 
